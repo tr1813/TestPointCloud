@@ -42,19 +42,19 @@
 	</div>
 	
 	<script>
-	
+		
 		window.viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
 		
 		viewer.setEDLEnabled(true);
 		viewer.setFOV(60);
 		viewer.setPointBudget(2_000_000);
-		document.title = "";
+		document.title = "Lapis Lazuli";
 		viewer.setEDLEnabled(false);
-		viewer.setBackground("gradient"); // ["skybox", "gradient", "black", "white"];
+		viewer.setBackground("black"); // ["skybox", "gradient", "black", "white"];
 		viewer.setDescription(``);
 		viewer.loadSettingsFromURL();
 		
-		viewer.setDescription("");
+		viewer.setDescription("Un nuage de points de Lapis Lazuli (403007)");
 		
 		viewer.loadGUI(() => {
 			viewer.setLanguage('en');
@@ -63,18 +63,66 @@
 			$("#menu_clipping").next().show();
 			viewer.toggleSidebar();
 		});
+		let scene = viewer.scene;
 		
 		Potree.loadPointCloud("pointclouds/LapisLazuli.html/cloud.js", "LapisLazuli.html", e => {
 			let pointcloud = e.pointcloud;
 			let material = pointcloud.material;
 			viewer.scene.addPointCloud(pointcloud);
-			//material.activeAttributeName = "rgba"; //[rgba, intensity, classification, ...]
+			material.activeAttributeName = "rgba"; //[rgba, intensity, classification, ...]
 			material.size = 1;
-			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
-			material.shape = Potree.PointShape.SQUARE;
+			material.pointSizeType = Potree.PointSizeType.FIXED;
+			material.shape = Potree.PointShape.CIRCLE;
 			viewer.fitToScreen();
+		
+		
+			viewer.scene.addPointCloud(pointcloud);
+
+			viewer.scene.addAnnotation([ 
+			-216780.5328607195,
+			872861.1047477507,
+			13033.506038238365], {
+			"title":"Puits de lumière",
+			"description":`Une <i>bédière</i> ou canyon de surface conduit l'eau de ruissellement et de fonte dans la grotte de glace.`,
+			"cameraPosition": [
+			-216782.399, 872864.389, 13030.284,],
+			"cameraTarget": [
+			-216786.515, 872846.700, 13030.887,]
+
+
+		});
+
+
+		viewer.scene.addAnnotation([ 
+			-216802.32302959473,
+			872819.4914791288,
+			13029.131632233079,], {
+			"title":"Entrée",
+			"description":`L'entrée principale de la grotte se trouve côté sud, en bordure du glacier HPS-31 (<i>Hiélo Patagonico Sur</i>)`
+		});
+
+
+		viewer.scene.addAnnotation([ 
+		-216793.43869256973,
+				872848.2331904173,
+				13029.882616400719,], {
+			"title":"Cible",
+			"description":`Les cibles photogrammétriques permettent de géoréférencer le nuage de points.`,
+			"cameraPosition": [
+			-216795.967, 
+			872848.505, 
+			13030.306,],
+			"cameraTarget": [
+			-216791.387, 
+			872847.945, 
+			13029.603,]
 		});
 		
+		});
+
+
+
+
 	</script>
 	
 	

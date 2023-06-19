@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>Potree Viewer</title>
+
+	<link rel="stylesheet" type="text/css" href="./libs/potree/potree.css">
+	<link rel="stylesheet" type="text/css" href="./libs/jquery-ui/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="./libs/openlayers3/ol.css">
+	<link rel="stylesheet" type="text/css" href="./libs/spectrum/spectrum.css">
+	<link rel="stylesheet" type="text/css" href="./libs/jstree/themes/mixed/style.css">
+</head>
+
+<body>
+	<script src="./libs/jquery/jquery-3.1.1.min.js"></script>
+	<script src="./libs/spectrum/spectrum.js"></script>
+	<script src="./libs/jquery-ui/jquery-ui.min.js"></script>
+	<script src="./libs/three.js/build/three.min.js"></script>
+	<script src="./libs/three.js/extra/lines.js"></script>
+	<script src="./libs/other/BinaryHeap.js"></script>
+	<script src="./libs/tween/tween.min.js"></script>
+	<script src="./libs/d3/d3.js"></script>
+	<script src="./libs/proj4/proj4.js"></script>
+	<script src="./libs/openlayers3/ol.js"></script>
+	<script src="./libs/i18next/i18next.js"></script>
+	<script src="./libs/jstree/jstree.js"></script>
+	<script src="./libs/potree/potree.js"></script>
+	<script src="./libs/plasio/js/laslaz.js"></script>
+	
+	<!-- INCLUDE ADDITIONAL DEPENDENCIES HERE -->
+		document.title = "";
+		viewer.setEDLEnabled(false);
+		viewer.setBackground("gradient"); // ["skybox", "gradient", "black", "white"];
+		viewer.setDescription(``);
+	
+	<div class="potree_container" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px; ">
+		<div id="potree_render_area" style="background-image: url('./libs/potree/resources/images/background.jpg');"></div>
+		<div id="potree_sidebar_container"> </div>
+	</div>
+	
+	<script>
+	
+		window.viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
+		
+		viewer.setEDLEnabled(true);
+		viewer.setFOV(60);
+		viewer.setPointBudget(2_000_000);
+		document.title = "";
+		viewer.setBackground("gradient"); // ["skybox", "gradient", "black", "white"];
+		viewer.setDescription(``);
+		viewer.loadSettingsFromURL();
+		
+		viewer.setDescription("");
+		
+		viewer.loadGUI(() => {
+			viewer.setLanguage('en');
+			$("#menu_appearance").next().show();
+			$("#menu_tools").next().show();
+			$("#menu_clipping").next().show();
+			viewer.toggleSidebar();
+		});
+		
+		Potree.loadPointCloud("pointclouds/GreatBaryteMerged/cloud.js", "GreatBaryteMerged", e => {
+			let pointcloud = e.pointcloud;
+			let material = pointcloud.material;
+			viewer.scene.addPointCloud(pointcloud);
+			material.activeAttributeName = "classification"; //[rgba, intensity, classification, ...]
+			material.size = 1;
+			material.pointSizeType = Potree.PointSizeType.FIXED;
+			material.shape = Potree.PointShape.CIRCLE;
+			viewer.fitToScreen();
+
+
+		viewer.scene.addAnnotation([
+				83.75549447536469,
+				105.64399898052216,
+				76.6879472732544,
+			], {
+				"title":"1",
+				"description":"Natural entrance",
+				"cameraPosition": [
+				90.065, 105.634, 89.326,
+				],
+				"cameraTarget": [
+				67.361, 100.818, 42.956,
+				]
+			});
+
+			viewer.scene.addAnnotation([
+				14.803462982177734,
+				28.780715703964233,
+				21.74567186832428,
+			], {
+				"title":"2",
+				"description":"Adit entrance",
+				"cameraPosition": [
+				10.434, 17.953, 27.233
+				],
+				"cameraTarget": [
+				34.987, 72.105, 9.889			]
+			});
+
+			viewer.scene.addAnnotation([
+			29.613470915704966,
+				93.5292432308197,
+				20.224419832229614,
+			], {
+				"title":"3",
+				"description":"Appendix",
+				"cameraPosition": [
+				24.384, 100.051, 21.965
+				],
+				"cameraTarget": [
+				59.321, 55.079, 18.740
+				]
+			});
+
+			viewer.scene.addAnnotation([
+				27.905844926834106,
+				58.063853442668915,
+				23.695923686027527,
+			], {
+				"title":"4",
+				"description":"Adit",
+				"cameraPosition": [
+				26.017, 53.479, 22.141
+				],
+				"cameraTarget": [
+				35.145, 68.436, 26.598
+				]
+			});
+
+			viewer.scene.addAnnotation([
+				51.23547863960266,
+				93.65724325180054,
+				40.402931571006775,
+			], {
+				"title":"5",
+				"description":"Great Baryte Chamber",
+				"cameraPosition": [
+				49.852, 102.249, 38.796
+				],
+				"cameraTarget": [
+				38.345, 79.757, 37.365
+				]
+			});
+
+
+		});
+		
+	</script>
+	
+	
+  </body>
+</html>

@@ -72,6 +72,79 @@
 			material.pointSizeType = Potree.PointSizeType.FIXED;
 			material.shape = Potree.PointShape.CIRCLE;
 			viewer.fitToScreen();
+
+
+		viewer.scene.addAnnotation([
+				211.002, -10.994, 161.644
+			], {
+				"title":"1",
+				"description":"Adit entrance",
+				"cameraPosition": [
+				207.162, -34.955, 171.658
+				],
+				"cameraTarget": [
+				210.808, -13.006, 164.627
+				]
+			});
+
+			viewer.scene.addAnnotation([
+			224.036, 78.544, 196.626
+			], {
+				"title":"2",
+				"description":"Main shaft entrance",
+				"cameraPosition": [
+				244.267, 73.487, 212.303
+				],
+				"cameraTarget": [
+				222.249, 79.289, 192.370
+				]
+			});
+
+
+			viewer.scene.addAnnotation([
+			164.553, 46.278, -0.213
+			], {
+				"title":"3",
+				"description":"Mined Geode, previously ore-bearing",
+				"cameraPosition": [
+				162.363, 22.167, 12.718
+				],
+				"cameraTarget": [
+				165.705, 54.343, -1.033
+				]
+			});
+
+			viewer.scene.addAnnotation([
+			96.947, 110.530, -5.861
+			], {
+				"title":"4",
+				"description":"Collapse chamber",
+				"cameraPosition": [
+				75.699, 123.593, 3.324
+				],
+				"cameraTarget": [
+				156.304, 71.112, -47.125
+				]
+			});
+			
+			{ // HEIGHT MEASURE
+				let measure = new Potree.Measure();
+				measure.name = "Maximum height difference";
+				measure.closed = false;
+				measure.showDistances = false;
+				measure.showHeight = true;
+				measure.addMarker(new THREE.Vector3(219.503, 77.057, 197.884));
+				measure.addMarker(new THREE.Vector3(277.190, 67.820, -16.175));
+				
+				viewer.scene.addMeasurement(measure);
+			}
+
+			
+
+			
+
+			
+			
 		});
 		
 	</script>

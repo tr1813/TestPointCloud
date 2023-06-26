@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>Potree Viewer</title>
+
+	<link rel="stylesheet" type="text/css" href="./libs/potree/potree.css">
+	<link rel="stylesheet" type="text/css" href="./libs/jquery-ui/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="./libs/openlayers3/ol.css">
+	<link rel="stylesheet" type="text/css" href="./libs/spectrum/spectrum.css">
+	<link rel="stylesheet" type="text/css" href="./libs/jstree/themes/mixed/style.css">
+</head>
+
+<body>
+	<script src="./libs/jquery/jquery-3.1.1.min.js"></script>
+	<script src="./libs/spectrum/spectrum.js"></script>
+	<script src="./libs/jquery-ui/jquery-ui.min.js"></script>
+	<script src="./libs/three.js/build/three.min.js"></script>
+	<script src="./libs/three.js/extra/lines.js"></script>
+	<script src="./libs/other/BinaryHeap.js"></script>
+	<script src="./libs/tween/tween.min.js"></script>
+	<script src="./libs/d3/d3.js"></script>
+	<script src="./libs/proj4/proj4.js"></script>
+	<script src="./libs/openlayers3/ol.js"></script>
+	<script src="./libs/i18next/i18next.js"></script>
+	<script src="./libs/jstree/jstree.js"></script>
+	<script src="./libs/potree/potree.js"></script>
+	<script src="./libs/plasio/js/laslaz.js"></script>
+	
+	<!-- INCLUDE ADDITIONAL DEPENDENCIES HERE -->
+		document.title = "";
+		viewer.setEDLEnabled(false);
+		viewer.setBackground("gradient"); // ["skybox", "gradient", "black", "white"];
+		viewer.setDescription(``);
+	
+	<div class="potree_container" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px; ">
+		<div id="potree_render_area" style="background-image: url('./libs/potree/resources/images/background.jpg');"></div>
+		<div id="potree_sidebar_container"> </div>
+	</div>
+	
+	<script>
+	
+		window.viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
+		
+		viewer.setEDLEnabled(true);
+		viewer.setFOV(60);
+		viewer.setPointBudget(2_000_000);
+		document.title = "Devil's Hole, Death Valley National Park (Nevada)";
+		viewer.setBackground("black"); // ["skybox", "gradient", "black", "white"];
+		viewer.setDescription(``);
+		viewer.loadSettingsFromURL();
+		
+		viewer.setDescription("Devil's Hole, Death Valley National Park (Nevada)");
+		
+		viewer.loadGUI(() => {
+			viewer.setLanguage('en');
+			$("#menu_appearance").next().show();
+			$("#menu_tools").next().show();
+			$("#menu_clipping").next().show();
+			viewer.toggleSidebar();
+		});
+		
+		Potree.loadPointCloud("pointclouds/DevilsHoleMerged/cloud.js", "DevilsHoleMerged", e => {
+			let pointcloud = e.pointcloud;
+			let material = pointcloud.material;
+			viewer.scene.addPointCloud(pointcloud);
+			material.activeAttributeName = "classification"; //[rgba, intensity, classification, ...]
+			material.size = 1;
+			material.pointSizeType = Potree.PointSizeType.FIXED;
+			material.shape = Potree.PointShape.CIRCLE;
+			viewer.fitToScreen();
+
+			viewer.scene.addAnnotation([
+				43.09614312648773,
+				31.072027008980513,
+				-0.8553924560546875,
+			], {
+				"title":"1",
+				"description":"Parking lot",
+				"cameraPosition": [
+				40.631, 6.713, 19.432
+				],
+				"cameraTarget": [
+				41.241, 146.865, -118.579
+				]
+			});
+
+
+			viewer.scene.addAnnotation([
+				16.84212636947632,
+				46.40203535556793,
+				0.14360761642456055,
+			], {
+				"title":"2",
+				"description":"Pergola",
+				"cameraPosition": [
+				41.228, 59.371, 9.781
+				],
+				"cameraTarget": [
+				-0.185, 28.892, -3.492
+				]
+			});
+
+
+			viewer.scene.addAnnotation([
+				43.783143043518066,
+				268.6276582479477,
+				20.794620275497437,
+			], {
+				"title":"3",
+				"description":"Devils Hole II entrance",
+				"cameraPosition": [
+				76.641, 259.547, 36.173,
+				],
+				"cameraTarget": [
+				28.671, 277.249, 15.868,
+				]
+			});
+
+
+			viewer.scene.addAnnotation([
+				57.70715141296387,
+				264.9051562547684,
+				-14.709898471832275,
+			], {
+				"title":"4",
+				"description":"Devils Hole II",
+				"cameraPosition": [
+				62.545, 277.345, -4.538,
+				],
+				"cameraTarget": [
+				33.689, 237.706, -38.463,
+				]
+			});
+
+			viewer.scene.addAnnotation([
+				28.98013472557068,
+				68.49604368209839,
+				-14.701400756835938,
+			], {
+				"title":"5",
+				"description":"Devils Hole",
+				"cameraPosition": [
+					12.244, 
+					53.029, 
+					11.113,
+				],
+				"cameraTarget": [
+					40.702, 
+					85.130, 
+					-36.785,
+				]
+			});
+
+			viewer.scene.addAnnotation([
+			30.707, 125.321, 16.897
+
+			], {
+				"title":"6",
+				"description":"Excavated cavity",
+				"cameraPosition": [
+				-14.817, 114.085, 20.048,
+							],
+				"cameraTarget": [
+				48.680, 110.718, 4.165,
+							]
+			});
+
+
+			
+			
+		});
+
+		
+		
+	</script>
+	
+	
+  </body>
+</html>

@@ -48,10 +48,9 @@
 		viewer.setEDLEnabled(true);
 		viewer.setFOV(60);
 		viewer.setPointBudget(2_000_000);
-		document.title = "";
-		viewer.setEDLEnabled(false);
+		document.title = "Dangi Adit";
 		viewer.setBackground("gradient"); // ["skybox", "gradient", "black", "white"];
-		viewer.setDescription(``);
+		viewer.setDescription(`Adit in the Dangi gorge (Kyrgyzstan)`);
 		viewer.loadSettingsFromURL();
 		
 		viewer.setDescription("");
@@ -68,7 +67,7 @@
 			let pointcloud = e.pointcloud;
 			let material = pointcloud.material;
 			viewer.scene.addPointCloud(pointcloud);
-			material.activeAttributeName = "rgba"; //[rgba, intensity, classification, ...]
+			material.activeAttributeName = "classification"; //[rgba, intensity, classification, ...]
 			material.size = 1;
 			material.pointSizeType = Potree.PointSizeType.FIXED;
 			material.shape = Potree.PointShape.CIRCLE;

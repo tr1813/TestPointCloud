@@ -48,10 +48,9 @@
 		viewer.setEDLEnabled(true);
 		viewer.setFOV(60);
 		viewer.setPointBudget(2_000_000);
-		document.title = "";
-		viewer.setEDLEnabled(false);
+		document.title = "Tyuya Muyun";
 		viewer.setBackground("gradient"); // ["skybox", "gradient", "black", "white"];
-		viewer.setDescription(``);
+		viewer.setDescription(`Tyuya Muyun project scans`);
 		viewer.loadSettingsFromURL();
 		
 		viewer.setDescription("");
@@ -68,10 +67,10 @@
 			let pointcloud = e.pointcloud;
 			let material = pointcloud.material;
 			viewer.scene.addPointCloud(pointcloud);
-			//material.activeAttributeName = "rgba"; //[rgba, intensity, classification, ...]
+			material.activeAttributeName = "classification"; //[rgba, intensity, classification, ...]
 			material.size = 1;
-			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
-			material.shape = Potree.PointShape.SQUARE;
+			material.pointSizeType = Potree.PointSizeType.FIXED;
+			material.shape = Potree.PointShape.CIRCLE;
 			viewer.fitToScreen();
 		});
 		

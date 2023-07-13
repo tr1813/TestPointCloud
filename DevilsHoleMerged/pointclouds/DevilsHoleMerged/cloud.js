@@ -2,7 +2,7 @@
     "version": "1.8",
     "octreeDir": "data",
     "projection": "",
-    "points": 21965003,
+    "points": 21943043,
     "boundingBox": {
         "lx": -123.66294860839844,
         "ly": -89.02503967285156,
